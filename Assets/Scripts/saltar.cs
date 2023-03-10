@@ -10,12 +10,10 @@ public class saltar : MonoBehaviour
     public int FuerzaSalto = 10;
     [Serialize]
     public int FuerzaMovimiento = 2;
-    public Object[] ObjetosObstaculos;
 
     // Start is called before the first frame update
     void Start()
     {
-        ObjetosObstaculos = GameObject.FindGameObjectsWithTag("Obstaculo");
     }
 
     // Update is called once per frame
@@ -24,15 +22,18 @@ public class saltar : MonoBehaviour
         Movement();
         //Rotation();
     }
-
     
+    void OnTriggerEnter()
+    {
+        Destroy(this);
+    }
+
     void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             PuedeSaltar = true;
         }
-
     }
 
     void OnCollisionExit(Collision collision)
