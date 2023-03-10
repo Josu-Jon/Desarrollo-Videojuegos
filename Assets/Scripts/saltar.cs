@@ -9,12 +9,13 @@ public class saltar : MonoBehaviour
     [Serialize]
     public int FuerzaSalto = 10;
     [Serialize]
-    public int FuerzaMovimiento = 4;
+    public int FuerzaMovimiento = 2;
+    public Object[] ObjetosObstaculos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        ObjetosObstaculos = GameObject.FindGameObjectsWithTag("Obstaculo");
     }
 
     // Update is called once per frame
@@ -25,12 +26,16 @@ public class saltar : MonoBehaviour
     }
 
     
-    void OnCollisionEnter(Collision collition)
+    void OnCollisionStay(Collision collision)
     {
-        PuedeSaltar = true;
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            PuedeSaltar = true;
+        }
+
     }
 
-    void OnCollisionExit(Collision collition)
+    void OnCollisionExit(Collision collision)
     {
         PuedeSaltar = false;
     }
@@ -43,11 +48,11 @@ public class saltar : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.W))
         {
-            this.GetComponent<Rigidbody>().AddForce(Vector3.up * FuerzaMovimiento);
+            this.GetComponent<Rigidbody>().AddForce(Vector3.forward * FuerzaMovimiento);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            this.GetComponent<Rigidbody>().AddForce(Vector3.down * FuerzaMovimiento);
+            this.GetComponent<Rigidbody>().AddForce(Vector3.back * FuerzaMovimiento);
         }
         if (Input.GetKey(KeyCode.A))
         {
