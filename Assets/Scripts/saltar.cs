@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class saltar : MonoBehaviour
 {
+    public bool PuedeSaltar = false;
     [Serialize]
-    public int FuerzaSalto = 2;
+    public int FuerzaSalto = 10;
     [Serialize]
-    public int FuerzaMovimiento = 1;
+    public int FuerzaMovimiento = 4;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +21,23 @@ public class saltar : MonoBehaviour
     void Update()
     {
         Movement();
-        Rotation();
+        //Rotation();
+    }
+
+    
+    void OnCollisionEnter(Collision collition)
+    {
+        PuedeSaltar = true;
+    }
+
+    void OnCollisionExit(Collision collition)
+    {
+        PuedeSaltar = false;
     }
 
     private void Movement()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && PuedeSaltar ==true)
         {
             this.GetComponent<Rigidbody>().AddForce(Vector3.up * FuerzaSalto);
         }
