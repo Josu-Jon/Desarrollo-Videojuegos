@@ -25,7 +25,7 @@ public class saltar : MonoBehaviour
     
     void OnTriggerEnter()
     {
-        Destroy(this);
+        
     }
 
     void OnCollisionStay(Collision collision)
